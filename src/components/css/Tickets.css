@@ -1,0 +1,98 @@
+.tickets-container {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tickets-container h1 {
+    color: #f37021;
+    margin-bottom: 20px;
+  }
+  
+  .section h2 {
+    margin: 10px 0;
+  }
+  
+  .dates, .times {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .date-button, .time-button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .date-button:hover, .time-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .selected {
+    background-color: #f37021;
+    color: white;
+    border-color: #f37021;
+  }
+  
+  .quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .quantity-selector button {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .quantity-selector span {
+    font-size: 16px;
+    width: 40px;
+    text-align: center;
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .add-to-cart, .buy-now {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .add-to-cart {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  .buy-now {
+    background-color: #f37021;
+    color: white;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #004494;
+  }
+  
+  .buy-now:hover {
+    background-color: #d95d1b;
+  }
+  

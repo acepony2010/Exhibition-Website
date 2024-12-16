@@ -1,20 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaUser, FaShoppingCart, FaGlobe } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../../css/Main/Header.css';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems] = useState([]);
   const [showCartPopup, setShowCartPopup] = useState(false);
+
+  // setCartItems
+
+  const cartPopupRef = useRef(null);
+  const userIconRef = useRef(null);
+  const cartIconRef = useRef(null);
 
   const toggleLogin = () => {
     setIsLoggedIn(!isLoggedIn);
   };
 
-  const handleCartClick = () => {
-    setShowCartPopup(!showCartPopup);
+
+  const handleClickOutside = (e) => {
+    if (
+      cartPopupRef.current && !cartPopupRef.current.contains(e.target) &&
+      !userIconRef.current.contains(e.target) &&
+      !cartIconRef.current.contains(e.target)
+    ) {
+      setShowCartPopup(false);
+    }
   };
+
+
+  const handleCartClick = (e) => {
+    e.stopPropagation();
+    setShowCartPopup((prevState) => !prevState);
+  };
+
+
+  const handleUserIconClick = (e) => {
+    e.stopPropagation();
+    toggleLogin();
+  };
+
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="header-container">
@@ -22,12 +56,11 @@ const Header = () => {
         <FaGlobe size={30} />
       </div>
       <div className="navigation">
-      <Link to="/" className="nav-link">TRANG CHỦ</Link>
-      <Link to="/tickets" className="nav-link">MUA VÉ</Link>
+        <Link to="/" className="nav-link">TRANG CHỦ</Link>
+        <Link to="/tickets" className="nav-link">MUA VÉ</Link>
       </div>
       <div className="user-actions">
-       
-        <div className="user-icon" onClick={toggleLogin}>
+        <div className="user-icon" ref={userIconRef} onClick={handleUserIconClick}>
           <FaUser size={25} />
           {isLoggedIn ? (
             <div className="dropdown">
@@ -50,13 +83,13 @@ const Header = () => {
             </div>
           )}
         </div>
-        <div className="cart-icon" onClick={handleCartClick}>
-          <FaShoppingCart size={25} /> {/* Sử dụng icon giỏ hàng */}
+        <div className="cart-icon" ref={cartIconRef} onClick={handleCartClick}>
+          <FaShoppingCart size={25} />
           <span className="cart-count">{cartItems.length}</span>
         </div>
       </div>
       {showCartPopup && (
-        <div className="cart-popup">
+        <div className="cart-popup" ref={cartPopupRef}>
           {cartItems.length === 0 ? (
             <div className="empty-cart">
               <h3>GIỎ HÀNG</h3>
